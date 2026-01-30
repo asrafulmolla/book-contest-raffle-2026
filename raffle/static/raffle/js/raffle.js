@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     completeQaBtn.addEventListener('click', () => {
         qaSection.style.display = 'none';
         controlsSection.style.display = 'flex';
+        const raffleArea = document.getElementById('raffleArea');
+        if (raffleArea) raffleArea.style.display = 'flex';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Rapid shuffle animation for 60 seconds
             const startTime = Date.now();
-            const duration = 600; // 1 minute
+            const duration = 60000; // 1 minute
 
             while (Date.now() - startTime < duration) {
                 shuffleHighlight(nextPool);
