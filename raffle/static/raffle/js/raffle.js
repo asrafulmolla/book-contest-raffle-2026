@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startBtn.addEventListener('click', async () => {
         if (isDrawing) return;
-        
+
         const start = parseInt(startNumInput.value);
         const end = parseInt(endNumInput.value);
 
@@ -57,30 +57,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialPool = currentSteps[0].pool;
         renderPool(initialPool);
         statusText.innerText = currentSteps[0].message;
-        
-        await wait(1500);
+
+        await wait(2000);
 
         for (let i = 1; i < currentSteps.length; i++) {
             const nextPool = currentSteps[i].pool;
             const message = currentSteps[i].message;
-            
-            statusText.innerText = 'Choosing survivors...';
-            
-            // Randomly highlight some numbers for "shuffling" effect
-            for (let shuffle = 0; shuffle < 5; shuffle++) {
+
+            // Rapid shuffle animation for 60 seconds
+            const startTime = Date.now();
+            const duration = 600; // 1 minute
+
+            while (Date.now() - startTime < duration) {
                 shuffleHighlight(nextPool);
-                await wait(200);
+                await wait(150); // Fast shuffle speed
+            }
+
+            statusText.innerText = 'Calculating survivors...';
+
+            // Final shuffle before transition
+            for (let shuffle = 0; shuffle < 10; shuffle++) {
+                shuffleHighlight(nextPool);
+                await wait(150);
             }
 
             // Final highlight of survivors
             highlightSurvivors(nextPool);
-            await wait(800);
+            await wait(1500);
 
             statusText.innerText = 'Eliminating...';
             await eliminateOthers(nextPool);
-            
+
             statusText.innerText = message;
-            await wait(1000);
+
+            // Re-render remaining numbers with increased size
+            const stepRatio = i / currentSteps.length;
+            const sizeClass = i === currentSteps.length - 1 ? 'winner' :
+                stepRatio > 0.7 ? 'large-xl' :
+                    stepRatio > 0.4 ? 'large-lg' :
+                        'large-md';
+
+            renderPool(nextPool, sizeClass);
+            await wait(3000);
         }
 
         // Show winner
@@ -95,11 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.disabled = false;
     }
 
-    function renderPool(pool) {
+    function renderPool(pool, sizeClass = '') {
         numberGrid.innerHTML = '';
         pool.forEach(num => {
             const card = document.createElement('div');
-            card.className = 'number-card';
+            card.className = `number-card ${sizeClass}`;
             card.innerText = num;
             card.dataset.number = num;
             numberGrid.appendChild(card);
@@ -165,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confetti.style.height = confetti.style.width;
             confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
             document.body.appendChild(confetti);
-            
+
             setTimeout(() => confetti.remove(), 5000);
         }
     }
