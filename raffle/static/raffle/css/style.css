@@ -159,6 +159,69 @@ header {
     }
 }
 
+/* QA Session Styles */
+.qa-container {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.qa-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 2rem;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.qa-header {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.question-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.answer-text {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+}
+
+.qa-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+#qaProgress {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.complete-btn {
+    margin-top: 2rem;
+    width: 100%;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent), #34d399) !important;
+}
+
 .controls {
     background: var(--card-bg);
     backdrop-filter: blur(12px);

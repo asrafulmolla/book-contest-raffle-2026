@@ -25,7 +25,22 @@
             </div>
         </header>
 
-        <section class="controls">
+        <!-- QA Section -->
+        <section id="qaSection" class="qa-container" style="display: none;">
+            <div id="qaCard" class="qa-card">
+                <div class="qa-header">Question & Answer Session</div>
+                <div id="question" class="question-text">Loading question...</div>
+                <div id="answer" class="answer-text">Answer will appear here.</div>
+                <div class="qa-footer">
+                    <button id="prevBtn" disabled>Previous</button>
+                    <span id="qaProgress">1 / 10</span>
+                    <button id="nextBtn">Next</button>
+                </div>
+                <button id="completeQaBtn" class="complete-btn" style="display: none;">Start Raffle Draw</button>
+            </div>
+        </section>
+
+        <section id="controls" class="controls">
             <div class="input-group">
                 <label for="startNum">From</label>
                 <input type="number" id="startNum" value="1" min="1">

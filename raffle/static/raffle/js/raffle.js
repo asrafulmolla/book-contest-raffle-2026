@@ -5,9 +5,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const numberGrid = document.getElementById('numberGrid');
     const statusText = document.getElementById('status');
 
+    // QA Elements
+    const qaSection = document.getElementById('qaSection');
+    const controlsSection = document.getElementById('controls');
+    const questionEl = document.getElementById('question');
+    const answerEl = document.getElementById('answer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const qaProgress = document.getElementById('qaProgress');
+    const completeQaBtn = document.getElementById('completeQaBtn');
+
     let currentSteps = [];
-    let currentStepIndex = 0;
     let isDrawing = false;
+    let qaData = [];
+    let currentQaIndex = 0;
+
+    // Initialize QA Session
+    async function initQaSession() {
+        try {
+            const response = await fetch('/api/qa/');
+            const data = await response.json();
+            if (data.qa && data.qa.length > 0) {
+                qaData = data.qa;
+                qaSection.style.display = 'block';
+                controlsSection.style.display = 'none';
+                updateQaDisplay();
+            } else {
+                // If PDF empty or failed, just show raffle
+                controlsSection.style.display = 'flex';
+            }
+        } catch (error) {
+            console.error("QA Error:", error);
+            controlsSection.style.display = 'flex';
+        }
+    }
+
+    function updateQaDisplay() {
+        const item = qaData[currentQaIndex];
+        questionEl.innerText = item.question;
+        answerEl.innerText = item.answer;
+        qaProgress.innerText = `${currentQaIndex + 1} / ${qaData.length}`;
+
+        prevBtn.disabled = currentQaIndex === 0;
+
+        if (currentQaIndex === qaData.length - 1) {
+            nextBtn.style.display = 'none';
+            completeQaBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            completeQaBtn.style.display = 'none';
+        }
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentQaIndex > 0) {
+            currentQaIndex--;
+            updateQaDisplay();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentQaIndex < qaData.length - 1) {
+            currentQaIndex++;
+            updateQaDisplay();
+        }
+    });
+
+    completeQaBtn.addEventListener('click', () => {
+        qaSection.style.display = 'none';
+        controlsSection.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    initQaSession();
 
     startBtn.addEventListener('click', async () => {
         if (isDrawing) return;
