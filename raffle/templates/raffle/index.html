@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1>Book Contest</h1>
-            <p class="subtitle">The Ultimate Raffle Draw Experience</p>
+            <h1 class="main-title">
+                <span class="title-main">Book</span>
+                <span class="title-accent">Contest</span>
+            </h1>
+            <div class="organizer-container">
+                <span class="organizer-text">Organized by</span>
+                <span class="team-name">TEAM POLARIS</span>
+            </div>
         </header>
 
         <section class="controls">
@@ -28,8 +36,11 @@
             </div>
             <button id="startBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 Launch Draw
             </button>
@@ -45,4 +56,5 @@
 
     <script src="{% static 'raffle/js/raffle.js' %}"></script>
 </body>
+
 </html>

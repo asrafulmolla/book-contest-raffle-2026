@@ -90,14 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             statusText.innerText = message;
 
-            // Re-render remaining numbers with increased size
-            const stepRatio = i / currentSteps.length;
-            const sizeClass = i === currentSteps.length - 1 ? 'winner' :
-                stepRatio > 0.7 ? 'large-xl' :
-                    stepRatio > 0.4 ? 'large-lg' :
-                        'large-md';
+            // Calculate a more gradual growth (e.g., 20% increase each step)
+            // Starts at 50px, and grows based on steps and reduction in pool size
+            const baseSize = 50;
+            const growthFactor = 1.25; // 25% growth each step is more manageable
+            const currentSize = Math.min(baseSize * Math.pow(growthFactor, i), 250);
+            const fontSize = currentSize * 0.4;
 
-            renderPool(nextPool, sizeClass);
+            renderPool(nextPool, i === currentSteps.length - 1 ? 'winner' : '', currentSize, fontSize);
             await wait(3000);
         }
 
@@ -113,13 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.disabled = false;
     }
 
-    function renderPool(pool, sizeClass = '') {
+    function renderPool(pool, className = '', size = null, fontSize = null) {
         numberGrid.innerHTML = '';
         pool.forEach(num => {
             const card = document.createElement('div');
-            card.className = `number-card ${sizeClass}`;
+            card.className = `number-card ${className}`;
             card.innerText = num;
             card.dataset.number = num;
+
+            if (size) {
+                card.style.width = `${size}px`;
+                card.style.height = `${size}px`;
+            }
+            if (fontSize) {
+                card.style.fontSize = `${fontSize}px`;
+            }
+
             numberGrid.appendChild(card);
         });
     }
