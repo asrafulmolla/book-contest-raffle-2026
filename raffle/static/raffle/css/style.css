@@ -195,12 +195,20 @@ header {
 }
 
 .answer-text {
-    font-size: 1.2rem;
-    color: var(--text-muted);
+    font-size: 1.6rem;
+    color: #ffffff;
+    font-weight: 600;
     margin-bottom: 3rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
+    padding: 2.5rem;
+    background: #1e293b;
+    /* Solid dark background for maximum contrast */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.5rem;
+    line-height: 1.6;
+    border-left: 8px solid var(--accent);
+    /* Thicker green accent bar */
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .qa-footer {
